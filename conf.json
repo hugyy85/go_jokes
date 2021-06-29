@@ -1,0 +1,11 @@
+{
+  "urls": {
+    "chackNoris": "http://api.icndb.com/jokes/random",
+    "insult": "https://evilinsult.com/generate_insult.php",
+    "badJoke": "https://icanhazdadjoke.com/"
+  },
+  "server": {
+    "host": "",
+    "port": "12345"
+  }
+}
