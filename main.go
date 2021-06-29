@@ -54,6 +54,25 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		function_num := rand.Intn(3)
+		var joke string
+		if function_num == 1 {
+			joke, err = getBadJoke(config.Urls.BadJoke)
+		} else if function_num == 2 {
+			joke, err = getChackNorisJoke(config.Urls.ChackNoris)
+		} else {
+			joke, err = getEvilInsult("ru", config.Urls.Insult)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		if err != nil {
+			log.Println(err)
+			json.NewEncoder(w).Encode(ErrorResponse{err.Error(), 400})
+		} else {
+			json.NewEncoder(w).Encode(JokeResponse{joke, 200})
+		}
+		fmt.Fprintf(w, "")
+	})
 
 	http.HandleFunc("/badJoke", func(w http.ResponseWriter, r *http.Request) {
 		joke, err := getBadJoke(config.Urls.BadJoke)
